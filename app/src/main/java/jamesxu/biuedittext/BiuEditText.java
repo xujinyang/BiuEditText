@@ -6,6 +6,7 @@ import android.animation.AnimatorSet;
 import android.animation.ObjectAnimator;
 import android.content.Context;
 import android.text.Editable;
+import android.text.Layout;
 import android.text.TextWatcher;
 import android.util.AttributeSet;
 import android.view.Gravity;
@@ -23,6 +24,7 @@ import java.util.Random;
 public class BiuEditText extends EditText {
     private ViewGroup contentContainer;
     private int height;
+    private String cacheStr = "";
 
     public BiuEditText(Context context, AttributeSet attrs) {
         super(context, attrs);
@@ -38,10 +40,15 @@ public class BiuEditText extends EditText {
 
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {
-                if (s.length() == 0)
-                    return;
-                char last = s.charAt(s.length() - 1);
-                update(last);
+
+                if (cacheStr.length() < s.length()) {
+                    char last = s.charAt(s.length() - 1);
+                    update(last, true);
+                } else {
+                    char last = cacheStr.charAt(cacheStr.length() - 1);
+                    update(last, false);
+                }
+                cacheStr = s.toString();
             }
 
             @Override
@@ -51,7 +58,7 @@ public class BiuEditText extends EditText {
         });
     }
 
-    private void update(char last) {
+    private void update(char last, boolean isUp) {
         final TextView textView = new TextView(getContext());
         textView.setTextColor(getResources().getColor(android.R.color.white));
         textView.setTextSize(30);
@@ -61,11 +68,28 @@ public class BiuEditText extends EditText {
         textView.measure(0, 0);
 
 
-        final int[] from = getFromLocation();
-        final float startX = from[0];
-        final float startY = from[1];
-        final float endX = from[0];
-        final float endY = 0;
+        int pos = getSelectionStart();
+        Layout layout = getLayout();
+        int line = layout.getLineForOffset(pos);
+        int baseline = layout.getLineBaseline(line);
+        int ascent = layout.getLineAscent(line);
+
+        float startX = 0;
+        float startY = 0;
+        float endX = 0;
+        float endY = 0;
+        if (isUp) {
+            startX = layout.getPrimaryHorizontal(pos) + 100;
+            startY = height / 3 * 2;
+            endX = startX;
+            endY = baseline + ascent;
+        } else {
+            endX = new Random().nextInt(contentContainer.getWidth());
+            endY = height / 3 * 2;
+            startX = layout.getPrimaryHorizontal(pos) + 70;
+            startY = baseline + ascent;
+        }
+
 
         final AnimatorSet animSet = new AnimatorSet();
         ObjectAnimator animX = ObjectAnimator.ofFloat(textView, "translationX", startX, endX);
@@ -87,13 +111,6 @@ public class BiuEditText extends EditText {
         });
         animSet.playTogether(animX, animY, scaleX, scaleY);
         animSet.start();
-    }
-
-    private int[] getFromLocation() {
-        int[] location = new int[2];
-        location[0] = new Random().nextInt(contentContainer.getWidth());
-        location[1] = height / 3 * 2;
-        return location;
     }
 
 

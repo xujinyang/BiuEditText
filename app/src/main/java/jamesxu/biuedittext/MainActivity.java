@@ -13,4 +13,6 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
         editText = (BiuEditText) findViewById(R.id.biucontainer);
     }
+
+
 }
