@@ -14,7 +14,7 @@ ext {
     siteUrl = 'https://github.com/xujinyang/BiuEditText'
     gitUrl = 'https://github.com/xujinyang/BiuEditText.git'
 
-    libraryVersion = '1.0.0'
+    libraryVersion = '1.2.0'
 
     developerId = 'xujinyang'
     developerName = 'xiaoxiao'
@@ -32,7 +32,7 @@ android {
         minSdkVersion 11
         targetSdkVersion 22
         versionCode 2
-        versionName "1.1"
+        versionName "1.2.0"
     }
     buildTypes {
         release {

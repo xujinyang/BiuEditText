@@ -15,15 +15,29 @@ biu，biu，一个有趣的EditText
 ### Step 1
 ##### Install with gradle
         dependencies {
-            compile 'com.xujinyang.BiuEditText:library:1.0.0'
+            compile 'com.xujinyang.BiuEditText:library:1.2.0'
         }
 ### Step 2
 
     <me.james.biuedittext.BiuEditText
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:hint="来把"
-        android:textColor="@android:color/white" />
+        android:hint="biu,biu,发射1号"
+        android:textColor="@android:color/white"
+        app:biu_duration="800"
+        app:biu_text_color="@android:color/white"
+        app:biu_text_scale="1.5"
+        app:biu_text_start_size="12sp" />
+       
+####attrs:
+
+| 参数 | 类型 |含义|
+|--------|--------|
+|   biu_duration     |   int     | 动画时长|
+|biu_text_color|color|飞来飞去的文本颜色|
+|biu_text_start_size|dimension|文本原来大小|
+|biu_text_scale|float|文本放大倍数|
+
 ### Step 3
 ```
 public class MainActivity extends AppCompatActivity {
