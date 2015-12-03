@@ -32,7 +32,7 @@ biu，biu，一个有趣的EditText
 ####attrs:
 
 | 参数 | 类型 |含义|
-|--------|--------|
+|--------|--------|--------|
 |   biu_duration     |   int     | 动画时长|
 |biu_text_color|color|飞来飞去的文本颜色|
 |biu_text_start_size|dimension|文本原来大小|
