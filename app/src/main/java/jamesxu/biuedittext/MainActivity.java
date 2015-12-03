@@ -3,8 +3,9 @@ package jamesxu.biuedittext;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 
+import me.james.biuedittext.BiuEditText;
+
 public class MainActivity extends AppCompatActivity {
-    public static final String TAG = "main";
     private BiuEditText editText;
 
     @Override
@@ -13,6 +14,4 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
         editText = (BiuEditText) findViewById(R.id.biucontainer);
     }
-
-
 }

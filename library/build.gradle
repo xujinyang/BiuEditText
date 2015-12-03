@@ -1,0 +1,51 @@
+apply plugin: 'com.android.library'
+apply plugin: 'com.github.dcendents.android-maven'
+apply plugin: 'com.jfrog.bintray'
+ext {
+    bintrayRepo = 'maven'
+    bintrayName = 'BiuEditText'
+
+    publishedGroupId = 'com.xujinyang.BiuEditText'
+    libraryName = 'BiuEditText'
+    artifact = 'library'
+
+    libraryDescription = 'biu，biu，一个有趣的EditText'
+
+    siteUrl = 'https://github.com/xujinyang/BiuEditText'
+    gitUrl = 'https://github.com/xujinyang/BiuEditText.git'
+
+    libraryVersion = '1.0.0'
+
+    developerId = 'xujinyang'
+    developerName = 'xiaoxiao'
+    developerEmail = '1119117546@qq.com'
+
+    licenseName = 'The Apache Software License, Version 2.0'
+    licenseUrl = 'http://www.apache.org/licenses/LICENSE-2.0.txt'
+    allLicenses = ["Apache-2.0"]
+}
+android {
+    compileSdkVersion 23
+    buildToolsVersion "23.0.2"
+
+    defaultConfig {
+        minSdkVersion 11
+        targetSdkVersion 23
+        versionCode 1
+        versionName "1.0"
+    }
+    buildTypes {
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+        }
+    }
+}
+
+dependencies {
+    compile fileTree(dir: 'libs', include: ['*.jar'])
+    compile 'com.android.support:appcompat-v7:23.1.1'
+}
+
+apply from: 'https://raw.githubusercontent.com/nuuneoi/JCenter/master/installv1.gradle'
+apply from: 'https://raw.githubusercontent.com/nuuneoi/JCenter/master/bintrayv1.gradle'

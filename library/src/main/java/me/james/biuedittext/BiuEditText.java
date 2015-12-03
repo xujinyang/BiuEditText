@@ -1,9 +1,10 @@
-package jamesxu.biuedittext;
+package me.james.biuedittext;
 
 import android.animation.Animator;
 import android.animation.AnimatorListenerAdapter;
 import android.animation.AnimatorSet;
 import android.animation.ObjectAnimator;
+import android.app.Activity;
 import android.content.Context;
 import android.text.Editable;
 import android.text.Layout;
@@ -115,7 +116,7 @@ public class BiuEditText extends EditText {
 
 
     private void init() {
-        contentContainer = (ViewGroup) ((MainActivity) getContext()).findViewById(android.R.id.content);
+        contentContainer = (ViewGroup) ((Activity) getContext()).findViewById(android.R.id.content);
         WindowManager windowManager = (WindowManager) getContext().getSystemService(Context.WINDOW_SERVICE);
         height = windowManager.getDefaultDisplay().getHeight();
     }

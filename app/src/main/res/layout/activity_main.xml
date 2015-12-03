@@ -10,11 +10,9 @@
     android:paddingTop="@dimen/activity_vertical_margin"
     tools:context=".MainActivity">
 
-    <jamesxu.biuedittext.BiuEditText
-        android:id="@+id/biucontainer"
+    <me.james.biuedittext.BiuEditText
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
         android:hint="来把"
         android:textColor="@android:color/white" />
 </LinearLayout>
