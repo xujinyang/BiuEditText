@@ -5,6 +5,9 @@ import android.animation.TypeEvaluator;
 import java.util.ArrayList;
 import java.util.Iterator;
 
+/**
+ * tks daimajia's BaseEasingMethod
+ */
 public abstract class BaseEasingMethod implements TypeEvaluator<Number> {
     protected float mDuration;
     private ArrayList<EasingListener> mListeners = new ArrayList();

@@ -11,11 +11,15 @@ biu，biu，一个有趣的EditText
 
 ![](http://7o4zmy.com1.z0.glb.clouddn.com/2015-11-24%2023_16_17.gif)
 
+and
+
+![](http://7o4zmy.com1.z0.glb.clouddn.com/2015-12-05%2017_56_35.gif)
+
 # Usage
 ### Step 1
 ##### Install with gradle
         dependencies {
-            compile 'com.xujinyang.BiuEditText:library:1.2.0'
+            compile 'com.xujinyang.BiuEditText:library:1.3.0'
         }
 ### Step 2
 
@@ -27,6 +31,7 @@ biu，biu，一个有趣的EditText
         app:biu_duration="800"
         app:biu_text_color="@android:color/white"
         app:biu_text_scale="1.5"
+        app:biu_type="flydown"
         app:biu_text_start_size="12sp" />
        
 ####attrs:
@@ -37,6 +42,7 @@ biu，biu，一个有趣的EditText
 |biu_text_color|color|飞来飞去的文本颜色|
 |biu_text_start_size|dimension|文本原来大小|
 |biu_text_scale|float|文本放大倍数|
+|biu_type|String|动画类型：flyDown，flyup|
 
 ### Step 3
 ```

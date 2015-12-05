@@ -1,5 +1,8 @@
 package me.james.biuedittext;
 
+/**
+ * tks daimajia's BounceEaseOut
+ */
 public class BounceEaseOut extends BaseEasingMethod {
     public BounceEaseOut(float duration) {
         super(duration);

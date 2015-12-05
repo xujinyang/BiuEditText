@@ -14,7 +14,7 @@ ext {
     siteUrl = 'https://github.com/xujinyang/BiuEditText'
     gitUrl = 'https://github.com/xujinyang/BiuEditText.git'
 
-    libraryVersion = '1.2.0'
+    libraryVersion = '1.3.0'
 
     developerId = 'xujinyang'
     developerName = 'xiaoxiao'
@@ -31,8 +31,8 @@ android {
     defaultConfig {
         minSdkVersion 11
         targetSdkVersion 22
-        versionCode 2
-        versionName "1.2.0"
+        versionCode 3
+        versionName "1.3.0"
     }
     buildTypes {
         release {
@@ -46,5 +46,5 @@ dependencies {
     compile fileTree(dir: 'libs', include: ['*.jar'])
 }
 
-//apply from: 'https://raw.githubusercontent.com/nuuneoi/JCenter/master/installv1.gradle'
-//apply from: 'https://raw.githubusercontent.com/nuuneoi/JCenter/master/bintrayv1.gradle'
+apply from: 'https://raw.githubusercontent.com/nuuneoi/JCenter/master/installv1.gradle'
+apply from: 'https://raw.githubusercontent.com/nuuneoi/JCenter/master/bintrayv1.gradle'
