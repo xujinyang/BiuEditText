@@ -7,10 +7,12 @@ import android.animation.ObjectAnimator;
 import android.app.Activity;
 import android.content.Context;
 import android.content.res.TypedArray;
+import android.graphics.Rect;
+import android.graphics.drawable.Drawable;
 import android.text.Editable;
-import android.text.Layout;
 import android.text.TextWatcher;
 import android.util.AttributeSet;
+import android.util.Log;
 import android.view.Gravity;
 import android.view.ViewGroup;
 import android.view.WindowManager;
@@ -18,7 +20,12 @@ import android.view.animation.DecelerateInterpolator;
 import android.widget.EditText;
 import android.widget.TextView;
 
+import java.lang.reflect.Field;
+import java.lang.reflect.InvocationTargetException;
+import java.lang.reflect.Method;
 import java.util.Random;
+
+import static android.content.ContentValues.TAG;
 
 /**
  * Created by james on 22/11/15.
@@ -137,53 +144,52 @@ public class BiuEditText extends EditText {
     }
 
     private void playFlyDown(TextView textView, boolean isOpposite, AnimatorListenerAdapter listenerAdapter) {
-        int pos = getSelectionStart();
-        Layout layout = getLayout();
         float startX = 0;
         float startY = 0;
         float endX = 0;
         float endY = 0;
+        float[] coordinate = getCursorCoordinate();
+        Log.i("测试数据1", "X" + coordinate[0] + "Y" + coordinate[1]);
         if (isOpposite) {
             endX = new Random().nextInt(contentContainer.getWidth());
             endY = 0;
-            startX = layout.getPrimaryHorizontal(pos) + 100;
-            startY = getY() - 100;
+            startX = coordinate[0];
+            startY = coordinate[1];
         } else {
-            startX = layout.getPrimaryHorizontal(pos) + 100;
+            startX = coordinate[0];
             startY = -100;
             endX = startX;
-            endY = getY() - 100;
+            endY = coordinate[1];
         }
         final AnimatorSet animSet = new AnimatorSet();
         ObjectAnimator animX = ObjectAnimator.ofFloat(textView, "translationX", startX, endX);
-        ObjectAnimator alpha = ObjectAnimator.ofFloat(textView, "alpha", 0, 1);
         ObjectAnimator translationY = ObjectAnimator.ofFloat(textView, "translationY", startY, endY);
         translationY.setEvaluator(new BounceEaseOut(biuDuration));
         animSet.setDuration(biuDuration);
         animSet.addListener(listenerAdapter);
-        animSet.playTogether(alpha, translationY, animX);
+        animSet.playTogether(translationY, animX);
         animSet.start();
     }
 
     private void playFlyUp(TextView textView, boolean isOpposite, AnimatorListenerAdapter listenerAdapter) {
-        int pos = getSelectionStart();
-        Layout layout = getLayout();
 
         float startX = 0;
         float startY = 0;
         float endX = 0;
         float endY = 0;
+        float[] coordinate = getCursorCoordinate();
+        Log.i("测试数据2", "X" + coordinate[0] + "Y" + coordinate[1]);
         if (isOpposite) {
             endX = new Random().nextInt(contentContainer.getWidth());
             endY = height / 3 * 2;
-            startX = layout.getPrimaryHorizontal(pos) + 100;
-            startY = getY();
+            startX = coordinate[0];
+            startY = coordinate[1];
         } else {
 
-            startX = layout.getPrimaryHorizontal(pos) + 100;
+            startX = coordinate[0];
             startY = height / 3 * 2;
             endX = startX;
-            endY = getY();
+            endY = coordinate[1];
         }
         final AnimatorSet animSet = new AnimatorSet();
         ObjectAnimator animX = ObjectAnimator.ofFloat(textView, "translationX", startX, endX);
@@ -196,6 +202,65 @@ public class BiuEditText extends EditText {
         animSet.addListener(listenerAdapter);
         animSet.playTogether(animX, animY, scaleX, scaleY);
         animSet.start();
+    }
+
+    /**
+     * @return the coordinate of cursor. x=float[0]; y=float[1];
+     *
+     * thanks @covetcode for this beautiful method
+     */
+    private float[] getCursorCoordinate() {
+     /*
+       *以下通过反射获取光标cursor的坐标。
+       * 首先观察到TextView的invalidateCursorPath()方法，它是光标闪动时重绘的方法。
+       * 方法的最后有个invalidate(bounds.left + horizontalPadding, bounds.top + verticalPadding,
+                   bounds.right + horizontalPadding, bounds.bottom + verticalPadding);
+       *即光标重绘的区域，由此可得到光标的坐标
+       * 具体的坐标在TextView.mEditor.mCursorDrawable里，获得Drawable之后用getBounds()得到Rect。
+       * 之后还要获得偏移量修正，通过以下三个方法获得：
+       * getVerticalOffset(),getCompoundPaddingLeft(),getExtendedPaddingTop()。
+       *
+      */
+
+        int xOffset = 0;
+        int yOffset = 0;
+        Class<?> clazz = EditText.class;
+        clazz = clazz.getSuperclass();
+        try {
+            Field editor = clazz.getDeclaredField("mEditor");
+            editor.setAccessible(true);
+            Object mEditor = editor.get(this);
+            Class<?> editorClazz = Class.forName("android.widget.Editor");
+            Field drawables = editorClazz.getDeclaredField("mCursorDrawable");
+            drawables.setAccessible(true);
+            Drawable[] drawable = (Drawable[]) drawables.get(mEditor);
+
+            Method getVerticalOffset = clazz.getDeclaredMethod("getVerticalOffset", boolean.class);
+            Method getCompoundPaddingLeft = clazz.getDeclaredMethod("getCompoundPaddingLeft");
+            Method getExtendedPaddingTop = clazz.getDeclaredMethod("getExtendedPaddingTop");
+            getVerticalOffset.setAccessible(true);
+            getCompoundPaddingLeft.setAccessible(true);
+            getExtendedPaddingTop.setAccessible(true);
+            if (drawable != null) {
+                Rect bounds = drawable[0].getBounds();
+                Log.d(TAG, bounds.toString());
+                xOffset = (int) getCompoundPaddingLeft.invoke(this) + bounds.left;
+            }
+        } catch (NoSuchMethodException e) {
+            e.printStackTrace();
+        } catch (InvocationTargetException e) {
+            e.printStackTrace();
+        } catch (IllegalAccessException e) {
+            e.printStackTrace();
+        } catch (NoSuchFieldException e) {
+            e.printStackTrace();
+        } catch (ClassNotFoundException e) {
+            e.printStackTrace();
+        }
+        float x = this.getX() + xOffset;
+        float y = this.getY();
+
+        return new float[]{x, y};
     }
 
 }

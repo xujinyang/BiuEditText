@@ -22,6 +22,7 @@
         app:biu_text_start_size="12sp"
         app:biu_type="flydown" />
 
+
     <me.james.biuedittext.BiuEditText
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
