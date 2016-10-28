@@ -178,7 +178,6 @@ public class BiuEditText extends EditText {
         float endX = 0;
         float endY = 0;
         float[] coordinate = getCursorCoordinate();
-        Log.i("测试数据2", "X" + coordinate[0] + "Y" + coordinate[1]);
         if (isOpposite) {
             endX = new Random().nextInt(contentContainer.getWidth());
             endY = height / 3 * 2;
