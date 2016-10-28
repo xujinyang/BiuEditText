@@ -19,7 +19,7 @@ and
 ### Step 1
 ##### Install with gradle
         dependencies {
-            compile 'com.xujinyang.BiuEditText:library:1.4.0'
+            compile 'com.xujinyang.BiuEditText:library:1.4.1'
         }
 ### Step 2
 
