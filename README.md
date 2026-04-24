@@ -11,6 +11,8 @@ biu，biu，一个有趣的EditText
 
 `web/` 目录提供了一个可直接嵌入网页的 BiuEditText 控件：
 
+![Web BiuEditText demo](web/assets/demo.gif)
+
 ```html
 <link rel="stylesheet" href="./web/styles.css" />
 <script src="./web/script.js"></script>
