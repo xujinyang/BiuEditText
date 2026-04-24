@@ -7,6 +7,29 @@ biu，biu，一个有趣的EditText
 
 如果喜欢这个效果，欢迎提pr，搞点有趣的。
 
+# Web 版本
+
+`web/` 目录提供了一个可直接嵌入网页的 BiuEditText 控件：
+
+```html
+<link rel="stylesheet" href="./web/styles.css" />
+<script src="./web/script.js"></script>
+
+<div data-biu-input data-placeholder="Type here..."></div>
+```
+
+也可以通过 JS 手动初始化：
+
+```js
+const editor = BiuEditText.mount("#comment-box", {
+    placeholder: "说点什么...",
+    autoFocus: true,
+    arcHeight: [180, 280]
+});
+```
+
+更多接入方式见 [web/README.md](web/README.md)。
+
 # 直接看效果
 
 ![](http://7o4zmy.com1.z0.glb.clouddn.com/2015-11-24%2023_16_17.gif)
