@@ -34,55 +34,7 @@ const editor = BiuEditText.mount("#comment-box", {
 
 # 直接看效果
 
-![](http://7o4zmy.com1.z0.glb.clouddn.com/2015-11-24%2023_16_17.gif)
-
-and
-
-![](http://7o4zmy.com1.z0.glb.clouddn.com/2015-12-05%2017_56_35.gif)
-
-# Usage
-### Step 1
-##### Install with gradle
-        dependencies {
-            compile 'com.xujinyang.BiuEditText:library:1.4.1'
-        }
-### Step 2
-
-    <me.james.biuedittext.BiuEditText
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:hint="biu,biu,发射1号"
-        android:textColor="@android:color/white"
-        app:biu_duration="800"
-        app:biu_text_color="@android:color/white"
-        app:biu_text_scale="1.5"
-        app:biu_type="flydown"
-        app:biu_text_start_size="12sp" />
-       
-####attrs:
-
-| 参数 | 类型 |含义|
-|--------|--------|--------|
-|   biu_duration     |   int     | 动画时长|
-|biu_text_color|color|飞来飞去的文本颜色|
-|biu_text_start_size|dimension|文本原来大小|
-|biu_text_scale|float|文本放大倍数|
-|biu_type|String|动画类型：flyDown，flyup|
-
-### Step 3
-```
-public class MainActivity extends AppCompatActivity {
-    private BiuEditText editText;
-
-    @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
-        editText = (BiuEditText) findViewById(R.id.biucontainer);
-    }
-}
-
-```
+![BiuEditText demo](web/assets/demo.gif)
 
 License
 --------
